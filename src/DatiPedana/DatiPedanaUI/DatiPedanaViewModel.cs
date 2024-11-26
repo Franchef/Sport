@@ -27,8 +27,13 @@ namespace DatiPedanaUI
                 if (System.IO.File.Exists(dialog.FileName))
                 {
                     FilePath = dialog.FileName;
+                    EnableEdit = true;
                 }
             }
         }
+        [ObservableProperty]
+        private bool _enableEdit = false;
+        [ObservableProperty]
+        private decimal _decimazione = 0.001M;
     }
 }

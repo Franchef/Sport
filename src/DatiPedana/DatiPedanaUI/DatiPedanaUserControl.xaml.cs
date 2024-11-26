@@ -29,6 +29,6 @@ namespace DatiPedanaUI
             InitializeComponent();
         }
 
-        public DatiPedanaViewModel ViewModel { get; init; }
+        public DatiPedanaViewModel ViewModel { get; init; } = new DatiPedanaViewModel();
     }
 }

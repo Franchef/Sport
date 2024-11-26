@@ -5,8 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:DatiPedanaUI"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800"
-             DataContext="{Binding ViewModel}">
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.DataContext>
+        <local:DatiPedanaViewModel/>
+    </UserControl.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -15,8 +17,38 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="35"/>
             <RowDefinition/>
+            <RowDefinition Height="35"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="FilePath" Grid.Column="0" Grid.Row="0" TextAlignment="Left" Margin="0" VerticalAlignment="Center"></TextBlock>
-        <Button Command="{Binding OpenFileCommand}" Content="Seleziona file" Grid.Row="0" Grid.Column="1"></Button>
+        <TextBlock Text="{Binding FilePath}" Grid.Column="0" Grid.Row="0" TextAlignment="Left" Margin="0" VerticalAlignment="Center"></TextBlock>
+        <Button Command="{Binding OpenFileCommand}" Content="Seleziona file" Grid.Row="0" Grid.Column="1"/>
+        <Canvas Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Background="White" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Path Stroke="Azure" StrokeThickness="5" Panel.ZIndex="100">
+                <Path.Data>
+                    <PathGeometry>
+                        <PathGeometry.Figures>
+                            <PathFigureCollection>
+                                <PathFigure StartPoint="0,0">
+                                    <PathFigure.Segments>
+                                        <PathSegmentCollection>
+                                            <LineSegment Point="200,200"/>
+                                            <LineSegment Point="300,150"/>
+                                            <LineSegment Point="400,200"/>
+                                        </PathSegmentCollection>
+                                    </PathFigure.Segments>
+                                </PathFigure>
+                            </PathFigureCollection>
+                        </PathGeometry.Figures>
+                    </PathGeometry>
+                </Path.Data>
+            </Path>
+        </Canvas>
+        <GroupBox Grid.Column="0" Grid.Row="2" Header="decimazione" IsEnabled="{Binding EnableEdit}">
+            <StackPanel Orientation="Horizontal">
+                <RadioButton IsChecked="{Binding Decimazione}" Content="0.1" Width="100"></RadioButton>
+                <RadioButton IsChecked="{Binding Decimazione}" Content="0.01" Width="100"></RadioButton>
+                <RadioButton IsChecked="{Binding Decimazione}" Content="0.001" Width="100"></RadioButton>
+            </StackPanel>
+        </GroupBox>
+        <Button Grid.Column="1" Grid.Row="2" Content="Salva in CSV"  IsEnabled="{Binding EnableEdit}"/>
     </Grid>
 </UserControl>
