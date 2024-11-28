@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:DatiPedanaUI"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="590" d:DesignWidth="1000">
     <UserControl.DataContext>
         <local:DatiPedanaViewModel/>
     </UserControl.DataContext>
@@ -17,38 +17,49 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="35"/>
             <RowDefinition/>
-            <RowDefinition Height="35"/>
+            <RowDefinition Height="55"/>
         </Grid.RowDefinitions>
         <TextBlock Text="{Binding FilePath}" Grid.Column="0" Grid.Row="0" TextAlignment="Left" Margin="0" VerticalAlignment="Center"></TextBlock>
         <Button Command="{Binding OpenFileCommand}" Content="Seleziona file" Grid.Row="0" Grid.Column="1"/>
-        <Canvas Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Background="White" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <Path Stroke="Azure" StrokeThickness="5" Panel.ZIndex="100">
-                <Path.Data>
-                    <PathGeometry>
-                        <PathGeometry.Figures>
-                            <PathFigureCollection>
-                                <PathFigure StartPoint="0,0">
-                                    <PathFigure.Segments>
-                                        <PathSegmentCollection>
-                                            <LineSegment Point="200,200"/>
-                                            <LineSegment Point="300,150"/>
-                                            <LineSegment Point="400,200"/>
-                                        </PathSegmentCollection>
-                                    </PathFigure.Segments>
-                                </PathFigure>
-                            </PathFigureCollection>
-                        </PathGeometry.Figures>
-                    </PathGeometry>
-                </Path.Data>
-            </Path>
-        </Canvas>
-        <GroupBox Grid.Column="0" Grid.Row="2" Header="decimazione" IsEnabled="{Binding EnableEdit}">
+        <!--<Canvas Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Background="White" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="Canvas">
+            <Polyline Stroke="Red" StrokeThickness="5" SnapsToDevicePixels="True" Visibility="Visible" Height="200" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" x:Name="LoadLine" Points="{Binding LoadPoints}">
+            </Polyline>
+        </Canvas>-->
+        <DataGrid Grid.Column="0" Grid.Row="1" ItemsSource="{Binding PlatformA}" AutoGenerateColumns="False" CanUserResizeColumns="False" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Index" Binding="{Binding Index}" Width="*"/>
+                <DataGridTextColumn Header="Load" Binding="{Binding Load}" Width="*"/>
+                <DataGridTextColumn Header="Encoder" Binding="{Binding Encoder}" Width="*"/>
+                <DataGridTextColumn Header="Force" Binding="{Binding Force}" Width="*"/>
+                <DataGridTextColumn Header="Speed" Binding="{Binding Speed}" Width="*"/>
+                <DataGridTextColumn Header="Displ" Binding="{Binding Displ}" Width="*"/>
+                <DataGridTextColumn Header="Power" Binding="{Binding Power}" Width="*"/>
+                <DataGridTextColumn Header="Time" Binding="{Binding Time}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid Grid.Column="1" Grid.Row="1" ItemsSource="{Binding PlatformB}" AutoGenerateColumns="False" CanUserResizeColumns="False" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Index" Binding="{Binding Index}" Width="*"/>
+                <DataGridTextColumn Header="Load" Binding="{Binding Load}" Width="*"/>
+                <DataGridTextColumn Header="Encoder" Binding="{Binding Encoder}" Width="*"/>
+                <DataGridTextColumn Header="Force" Binding="{Binding Force}" Width="*"/>
+                <DataGridTextColumn Header="Speed" Binding="{Binding Speed}" Width="*"/>
+                <DataGridTextColumn Header="Displ" Binding="{Binding Displ}" Width="*"/>
+                <DataGridTextColumn Header="Power" Binding="{Binding Power}" Width="*"/>
+                <DataGridTextColumn Header="Time" Binding="{Binding Time}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <GroupBox Grid.Column="0" Grid.Row="2" Header="Decimazione" IsEnabled="{Binding EnableEdit}">
             <StackPanel Orientation="Horizontal">
-                <RadioButton IsChecked="{Binding Decimazione}" Content="0.1" Width="100"></RadioButton>
-                <RadioButton IsChecked="{Binding Decimazione}" Content="0.01" Width="100"></RadioButton>
-                <RadioButton IsChecked="{Binding Decimazione}" Content="0.001" Width="100"></RadioButton>
+                <Button Command="{Binding DecimazioneAlDecimoDiSecondoCommand}" Content="Riduci al decimo" Width="220" Margin="12, 0" IsEnabled="{Binding EnableEdit}"/>
+                <Button Command="{Binding DecimazioneAlCentesimoDiSecondoCommand}" Content="Riduci al centesimo" Width="220" Margin="12, 0"  IsEnabled="{Binding EnableEdit}"/>
             </StackPanel>
         </GroupBox>
-        <Button Grid.Column="1" Grid.Row="2" Content="Salva in CSV"  IsEnabled="{Binding EnableEdit}"/>
+        <GroupBox Grid.Column="1" Grid.Row="2" Header="Salvataggio" IsEnabled="{Binding EnableEdit}">
+            <StackPanel Orientation="Horizontal">
+                <Button Command="{Binding SalvaCSVConHeaderCommand}" Content="Salva CSV con Header" Width="220" Margin="12, 0" IsEnabled="{Binding EnableEdit}"/>
+                <Button Command="{Binding SalvaSCVSenzaHeaderCommand}" Content="Salva CSV Senza Header" Width="220" Margin="12, 0" IsEnabled="{Binding EnableEdit}"/>
+            </StackPanel>
+        </GroupBox>
     </Grid>
 </UserControl>
